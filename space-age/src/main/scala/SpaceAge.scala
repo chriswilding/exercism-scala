@@ -2,7 +2,7 @@ object SpaceAge {
   val SecondsInYearOnEarth = 31557600
 
   def onEarth(seconds: Double, orbitalPeriod: Double = 1): Double =
-    BigDecimal(seconds / (orbitalPeriod * SecondsInYearOnEarth)).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+    Math.round(seconds / orbitalPeriod / SecondsInYearOnEarth * 100) / 100.0
 
   def onMercury(seconds: Double): Double =
     onEarth(seconds, 0.2408467)
