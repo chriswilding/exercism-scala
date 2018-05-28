@@ -3,5 +3,5 @@ object Hamming {
     if (strandA.length != strandB.length)
       None
     else
-      Some((strandA zip strandB).count(pair => pair._1 != pair._2))
+      Some((strandA zip strandB).count(Function.tupled((a, b) => a != b)))
 }
