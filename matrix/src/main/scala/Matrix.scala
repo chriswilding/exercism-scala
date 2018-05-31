@@ -1,13 +1,13 @@
-class Matrix(val matrix: String) {
-  def column(i: Int): Vector[Int] = {
-    val rows = matrix.split('\n')
-    rows.map(r => r.split(' ')(i).toInt).toVector
-  }
+class Matrix(input: String) {
+  private val matrix = input.split('\n')
+    .map(_.split(' ').map(_.toInt).toVector)
+    .toVector
 
-  def row(i: Int): Vector[Int] = {
-    val r = matrix.split('\n')(i)
-    r.split(' ').map(_.toInt).toVector
-  }
+  def column(i: Int): Vector[Int] =
+    matrix.map(_(i))
+  
+  def row(i: Int): Vector[Int] =
+    matrix(i)
 }
 
 object Matrix {
