@@ -33,8 +33,7 @@ object BottleNumber {
 
 object BeerSong {
   def recite(from: Int, verses: Int): String = {
-    val to = from - (verses - 1)
-    from.to(to, -1).map(n => verse(n)).mkString("\n")
+    from.until(from - verses, -1).map(n => verse(n)).mkString("\n")
   }
 
   def verse(number: Int): String = {
