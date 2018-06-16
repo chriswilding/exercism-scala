@@ -2,7 +2,7 @@ object PrimeFactors {
   def factors(n: Long): List[Long] = {
     if (n == 1) List.empty
     else {
-      getFactors(n, 2, List.empty[Long]).reverse
+      getFactors(n, 2, List.empty).reverse
     }
   }
 
