@@ -3,17 +3,17 @@ import scala.math.Integral.Implicits._
 object AllYourBase {
   def rebase(from: Int, digits: List[Int], to: Int): Option[List[Int]] =
     if (from < 2 || to < 2 || digits.exists(d => d < 0 || d >= from)) None
+    else if (digits.forall(_ == 0)) Some(List(0))
     else {
       val base10 = toBase10(from, digits)
-      if (base10 == 0) Some(List(0))
-      else Some(toBase(to, base10))
+      Some(toBase(to, base10))
     }
 
   private def toBase10(from: Int, digits: List[Int]): Int =
     digits
       .reverse
       .zipWithIndex
-      .map(nWithIndex => nWithIndex._1 * math.pow(from, nWithIndex._2).toInt)
+      .map { case (n, i) => n * math.pow(from, i).toInt }
       .sum
 
   @annotation.tailrec
