@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object RomanNumerals {
   private val romanToArabic = List(
     ("M", 1000),
@@ -15,11 +17,12 @@ object RomanNumerals {
     ("I", 1)
   )
 
-  def roman(n: Int): String = {
-    if (n == 0) ""
+  @tailrec
+  def roman(n: Int, output: String = ""): String = {
+    if (n == 0) output
     else {
       val (r, a) = romanToArabic.maxBy(n >= _._2)
-      r + roman(n - a)
+      roman(n - a, output + r)
     }
   }
 }
