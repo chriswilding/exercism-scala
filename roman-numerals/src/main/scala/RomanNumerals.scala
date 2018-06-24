@@ -16,23 +16,10 @@ object RomanNumerals {
   )
 
   def roman(n: Int): String = {
-    val stringBuilder = new StringBuilder
-
-    romanToArabic.foldLeft(n)(
-      (remainder, romanAndArabic) => {
-        val (roman, arabic) = romanAndArabic
-        val times = math.floor(remainder / arabic).toInt
-
-        if (times == 0) remainder
-        else {
-          for (_ <- 0 until times) {
-            stringBuilder.append(roman)
-          }
-          remainder - (times * arabic)
-        }
-      }
-    )
-
-    stringBuilder.toString
+    if (n == 0) ""
+    else {
+      val (r, a) = romanToArabic.maxBy(n >= _._2)
+      r + roman(n - a)
+    }
   }
 }
