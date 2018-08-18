@@ -12,25 +12,27 @@ case class Cipher(inputKey: Option[String]) {
   }
 
   def encode(input: String): String =
-    input.zip(key).map(pair => {
-      val map = buildMap(pair._2 - 'a', true)
-      map(pair._1)
-    })
-      .mkString
+    input.zip(key).map {
+      case (inChar, inKey) => {
+        val map = buildMap(inKey - 'a', true)
+        map(inChar)
+      }
+    }.mkString
 
   def decode(input: String): String =
-    input.zip(key).map(pair => {
-      val map = buildMap(pair._2 - 'a')
-      map(pair._1)
-    })
-      .mkString
+    input.zip(key).map {
+      case (inChar, inKey) => {
+        val map = buildMap(inKey - 'a')
+        map(inChar)
+      }
+    }.mkString
 
   private def buildMap(offset: Int, encode: Boolean = false): Map[Char, Char] = {
     val rotated = Stream.continually('a' to 'z')
       .flatten
       .slice(offset, offset + 26)
 
-    if (encode) ('a' to 'z').zip(rotated).toMap
-    else rotated.zip('a' to 'z').toMap
+    val pairs = if (encode) ('a' to 'z').zip(rotated) else rotated.zip('a' to 'z')
+    pairs.toMap
   }
 }
