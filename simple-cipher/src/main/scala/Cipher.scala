@@ -5,9 +5,8 @@ case class Cipher(inputKey: Option[String]) {
     case None => Random.alphanumeric.filter(_.isLetter).take(100).mkString.toLowerCase
     case Some(string) => {
       val valid = !string.isEmpty && string.toSeq.forall(c => c.isLetter && c.isLower)
-      if (valid) {
-        string
-      } else throw new IllegalArgumentException()
+      if (valid) string
+      else throw new IllegalArgumentException()
     }
   }
 
