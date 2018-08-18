@@ -5,18 +5,18 @@ object NthPrime {
       case 1 => Some(2)
       case n => {
         val stream = Stream.from(3, 2)
-        buildPrimes(stream, n - 1, List.empty).headOption
+        Some(nth(stream, n - 1))
       }
     }
   }
 
   @annotation.tailrec
-  private def buildPrimes(stream: Stream[Int], count: Int, primes: List[Int]): List[Int] = {
-    if (count == 0) primes
+  private def nth(stream: Stream[Int], count: Int, nthPrime: Int = 0): Int = {
+    if (count == 0) nthPrime
     else {
-      val prime = stream.head
-      val nextStream = stream.tail.filter(candidate => candidate % prime != 0)
-      buildPrimes(nextStream, count - 1, prime :: primes)
+      val nextPrime = stream.head
+      val nextStream = stream.tail.filter(candidate => candidate % nextPrime != 0)
+      nth(nextStream, count - 1, nextPrime)
     }
   }
 }
