@@ -6,7 +6,7 @@ object Luhn {
         else if (input.exists(!_.isDigit)) false
         else {
             val sum = input.reverse.zipWithIndex.map { charIndex =>
-                val number = charIndex._1.toInt - 48
+                val number = charIndex._1.asDigit
                 val index = charIndex._2
                 if (index % 2 == 0) number
                 else {
