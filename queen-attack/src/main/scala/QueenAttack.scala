@@ -6,7 +6,7 @@ object Queen {
         else None
     }
 
-    private def isValid(position: Int) =
+    private def isValid(position: Int): Boolean =
         position >= 0 && position <= 7
 }
 
